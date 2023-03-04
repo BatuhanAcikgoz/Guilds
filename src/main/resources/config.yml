@@ -1,0 +1,97 @@
+#db or file
+storage-type: db # db(using mysql) or file(flat file is not advised but for only testing purposes only!)
+database-info:
+  address: host # ip/domain
+  port: 3306 # default db port (3306)
+  username: user # your db username
+  password: pass # your db password
+  database: db # your db name
+  table: guildsdb # what you want the table to be called.
+settings:
+  enable-guild-creation-cost: true
+  guild-creation-cost: 500 # set `enable-guild-creation-cost` too false, to disable creation cost.
+
+# style messages to fit your server.
+messages:
+
+  create-guild: "&2&lYou've created a new guild!"
+  disband-guild: "&cYou disbanded your guild!"
+  no-invite: "&cYou do not have a pending invite from &7%placeholder%&c."
+  invite-send: "&7You invited &2&l%placeholder% &7to your guild!"
+  invite-receive: "&7You received an invite from &2&l%placeholder%&7! &fEnter &2/g accept %placeholder% &fto accept."
+  invite-accepted: "&7You accepted an invite from &2&l%placeholder%&7!"
+  invite-denied: "&cYou denied the invite from %placeholder%."
+  must-be-owner: "&cYou must be the owner of a guild to do this!"
+  guild-not-found: "&c%placeholder% not found!"
+  player-not-found: "&cThe player %placeholder% was not found!"
+  player-already-in-guild: "&cThe player %placeholder% is already in your guild!"
+  player-joined-guild: "&2&l%placeholder% &7joined your guild!"
+  set-description: "&7Guild description set to: &2&l%placeholder%"
+  set-name: "&7Guild name set to: &2&l%placeholder%"
+  generic-error: "&cAn error occurred!"
+  guild-list-header: "&2&lGuilds"
+  guild-slot-max: "&cLonca maksimum kullanıcı sınırına ulaşmış!"
+  guild-list-line: "&2&l#%number% &7Name: &2&l%guildName% &7Members: &2&l%members%"
+  guild-already-exists: "&cA Guild with that name already exists!"
+  already-in-guild: "&cYou are already in a guild!"
+  self-invite-error: "&cYou can't invite yourself!"
+  leave-guild-owner: "&cYou can't leave your own guild! Use /g delete if you wish to remove it."
+  not-in-guild: "&cYou are not in a guild!"
+  leave-guild: "&aYou left %placeholder%."
+  not-console-command: "Only in-game players can do this command!"
+  guild-chat-off: "&aLonca chati şu an kapalı!"
+  guild-chat-on: "&aLonca chati şu an açık!"
+  guild-set-name: "&7Guild name updated: &2&l%placeholder%"
+  no-guilds: "&cNo guilds have been made yet!"
+  no-special-characters: "&cSpecial characters are not allowed in this command!"
+  guild-create-insufficient-funds: "&cYou need $%placeholder% to create a Guild."
+  already-max-level: "&cYour guild is already the max level!"
+  no-confirmation: "&cNo pending confirmation found.."
+  reload: "&fPlugin reloaded!"
+  no-permission: "&cYou do not have permission to do this!"
+  only-owner-can-access: "&cOnly the Leader can access this area."
+  guild-info-text: "&fLonca Bilgi"
+  kill-player: "&6%placeholder% &7adlı oyuncuyu öldürdün &6⚔"
+  guild-info:
+    header: "&8&m-------&r &2&l%placeholder% &8&m--------"
+    leader: "&2Leader: &f%placeholder%"
+    description: "&2Description: &f%placeholder%"
+    level: "&2Level: &f%placeholder%"
+    size: "&2Size: &f%placeholder%"
+    online: "&2Online: &f%placeholder%"
+    members: "&2Members:"
+    member-color: "&7"
+    bottom: "&8&m----------------------"
+  gui:
+    main-menu-title: '&8Guild Info'
+    members-menu-title: '&8Guild > Members'
+
+  # usage command messages.
+  syntax:
+    create: "&cUsage: /%placeholder% create <name>"
+    disband: "&cUsage: /%placeholder% disband"
+    invite: "&cUsage: /%placeholder% invite <player>"
+    deny-invite: "&cUsage: /%placeholder% deny <guild>"
+    accept-invite: "&cUsage: /%placeholder% accept <guild>"
+    list: "&cUsage: /%placeholder% list"
+    setdesc: "&Usage: /%placeholder% setdesc <description>"
+    leave: "&Usage: /%placeholder% leave"
+    setname: "&cUsage: /%placeholder% setname <name>"
+    confirm: "&cUsage: /%placeholder% confirm"
+    upgrade: "&cUsage: /%placeholder% upgrade"
+    chat: "&cUsage: /%placeholder% chat"
+    reload: "&cUsage: /%placeholder% reload"
+
+# command help message.
+help:
+  header: "&2&lGuilds Help"
+  line-1: "&a/%placeholder% create <name> &7- Create a new guild"
+  line-2: "&a/%placeholder% delete &7- Delete your guild"
+  line-5: "&a/%placeholder% chat <message> &7- Message all online members"
+  line-6: "&a/%placeholder% invite <player> &7- Invite a player"
+  line-7: "&a/%placeholder% accept <guild> &7- Accept an invite"
+  line-8: "&a/%placeholder% leave &7- Leave your guild"
+  line-9: "&a/%placeholder% list &7- List the top guilds"
+  line-10: "&a/%placeholder% reload &7- Reload all configs/data for guilds"
+
+

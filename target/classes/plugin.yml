@@ -1,0 +1,19 @@
+name: Guilds
+version: '1.2'
+main: net.devscape.project.guilds.Guilds
+api-version: 1.13
+authors: [Reeignn]
+depend:
+  - Vault
+softdepend:
+  - PlaceholderAPI
+  - StrikePractice
+description: Amazing guild rich-feature plugin.
+commands:
+  guilds:
+    description: Command for guilds.
+    usage: ""
+    aliases:
+      - guild
+      - guilds
+      - g
