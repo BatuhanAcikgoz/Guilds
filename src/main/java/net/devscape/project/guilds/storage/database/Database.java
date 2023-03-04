@@ -444,7 +444,7 @@ public class Database implements ManageData {
         try (final Connection conn = this.connect();
              final PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, guildId);
-            stat.setString(2, oldguildname.toString());
+            stat.setString(2, oldguildname.get().getName());
             stat.execute();
             return true;
         }
