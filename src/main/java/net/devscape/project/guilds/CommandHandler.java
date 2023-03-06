@@ -79,7 +79,7 @@ public class CommandHandler implements CommandExecutor
         else if (args[0].equalsIgnoreCase("setdesc")) {
             this.guildSetDesc(sender, args, label);
         }
-        else if (args[0].equalsIgnoreCase("setname")) {
+        else if (args[0].equalsIgnoreCase("rename")) {
             this.GuildSetName(sender, args, label);
         }
         else if (args[0].equalsIgnoreCase("confirm")) {
@@ -90,6 +90,9 @@ public class CommandHandler implements CommandExecutor
         }
         else if (args[0].equalsIgnoreCase("accept")) {
             this.guildAccept(sender, args, label);
+        }
+        else if (args[0].equalsIgnoreCase("setrole")) {
+            this.SetRole(sender, args, label);
         }
         else if (args.length == 1) {
             this.guildInfo(sender, args, label);
@@ -127,7 +130,7 @@ public class CommandHandler implements CommandExecutor
             new GuildSetName(this.plugin, sender, args);
         }
         else {
-            Message.sendPlaceholder(this.plugin, sender, "syntax.setname", label);
+            Message.sendPlaceholder(this.plugin, sender, "syntax.rename", label);
         }
     }
 
@@ -159,6 +162,15 @@ public class CommandHandler implements CommandExecutor
         }
         else {
             Message.sendPlaceholder(this.plugin, sender, "syntax.accept-invite", label);
+        }
+    }
+
+    private void SetRole(final CommandSender sender, final String[] args, final String label) {
+        if (args.length == 3) {
+            new SetRole(this.plugin, sender, args);
+        }
+        else {
+            Message.sendPlaceholder(this.plugin, sender, "syntax.setrole", label);
         }
     }
     

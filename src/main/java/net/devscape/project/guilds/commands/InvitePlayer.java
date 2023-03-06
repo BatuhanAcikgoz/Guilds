@@ -36,7 +36,7 @@ public class InvitePlayer extends SubCommand {
             Message.send(this.getPlugin(), this.getSender(), "self-invite-error");
             return false;
         }
-        if (guild.get().getMembers().get(player.getUniqueId()) != Role.LEADER) {
+        if (!(guild.get().getMembers().get(player.getUniqueId()) == Role.LEADER || guild.get().getMembers().get(player.getUniqueId()) == Role.MOD)) {
             Message.send(this.getPlugin(), this.getSender(), "must-be-owner");
             return false;
         }

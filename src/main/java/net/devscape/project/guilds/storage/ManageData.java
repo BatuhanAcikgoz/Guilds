@@ -1,5 +1,6 @@
 package net.devscape.project.guilds.storage;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,4 +36,8 @@ public interface ManageData
     boolean loadAllData();
 
     boolean GuildSetNameSQL(final UUID p0, final String p1);
+
+    String getGuildDBId(final String p0);
+
+    boolean updatePlayer(final UUID p0, final String p1, final String p2) throws SQLException;
 }

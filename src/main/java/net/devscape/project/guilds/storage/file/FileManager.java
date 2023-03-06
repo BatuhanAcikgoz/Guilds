@@ -92,6 +92,16 @@ public class FileManager implements ManageData {
     }
 
     @Override
+    public String getGuildDBId(String p0) {
+        return null;
+    }
+
+    @Override
+    public boolean updatePlayer(UUID p0, String p1, String p2) {
+        return false;
+    }
+
+    @Override
     public boolean saveGuild(final Guild guild) {
         if (this.getCache().getGuilds().containsKey(guild.getName())) {
             this.getCache().getGuilds().replace(guild.getName(), guild);

@@ -1,16 +1,9 @@
 package net.devscape.project.guilds.storage.database;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import net.devscape.project.guilds.Guilds;
 import net.devscape.project.guilds.handlers.Role;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 import net.devscape.project.guilds.handlers.GPlayer;
 import java.sql.ResultSet;
 import net.devscape.project.guilds.handlers.Guild;
@@ -231,8 +224,8 @@ public class Database implements ManageData {
         }
     }
     
-    private boolean updatePlayer(final UUID id, final String role, final String guildId) throws SQLException {
-        final String sql = "UPDATE " + this.playerTable + "SET role = ?, guild_id = ? WHERE id = ?";
+    public boolean updatePlayer(final UUID id, final String role, final String guildId) throws SQLException {
+        final String sql = "UPDATE " + this.playerTable + " SET role = ?, guild_id = ? WHERE id = ?";
         try (final Connection conn = this.connect();
              final PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, role);
@@ -422,7 +415,25 @@ public class Database implements ManageData {
         }
         return this.insertInvite(playerId.toString(), guildId);
     }
-    
+
+    public String getGuildDBId(final String guildId) {
+        final String sql = "SELECT id FROM " + this.guildTable + " WHERE id = ?";
+        try (final Connection conn = this.connect();
+             final PreparedStatement stat = conn.prepareStatement(sql)) {
+            stat.setString(1, guildId);
+            stat.execute();
+            final ResultSet rs = stat.getResultSet();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
     private boolean insertInvite(final String playerId, final String guildId) {
         final String sql = "INSERT INTO " + this.inviteTable + " VALUES (?, ?)";
         try (final Connection conn = this.connect();

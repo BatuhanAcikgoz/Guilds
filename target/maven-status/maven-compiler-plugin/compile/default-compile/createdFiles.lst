@@ -15,6 +15,7 @@ net\devscape\project\guilds\commands\Chat.class
 net\devscape\project\guilds\Guilds.class
 net\devscape\project\guilds\commands\LeaveGuild.class
 net\devscape\project\guilds\commands\CreateGuild.class
+net\devscape\project\guilds\commands\SetRole.class
 net\devscape\project\guilds\storage\file\FileManager.class
 net\devscape\project\guilds\commands\Confirmation.class
 net\devscape\project\guilds\commands\DisbandGuildAccept.class

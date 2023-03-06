@@ -41,19 +41,24 @@ public class MembersMenu extends Menu {
         if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getType().equals(Material.PLAYER_HEAD)) {
             String member = deformat(e.getCurrentItem().getItemMeta().getDisplayName());
 
-            OfflinePlayer m = Bukkit.getPlayer(member);
+            OfflinePlayer m = Bukkit.getOfflinePlayer(member);
             OfflinePlayer o = Bukkit.getOfflinePlayer(menuUtil.getGuild().getOwner());
 
             if (menuUtil.getGuild().getMembers().containsKey(m.getUniqueId())) {
                 if (!m.getUniqueId().equals(o.getUniqueId())) {
-                    menuUtil.getGuild().removeMember(m.getUniqueId());
-                    Guilds.getInstance().getData().removePlayer(m.getUniqueId());
-                    Guilds.getInstance().getData().saveGuild(menuUtil.getGuild());
-                    player.closeInventory();
-                    new MembersMenu(Guilds.getMenuUtil((Player) e.getWhoClicked(), menuUtil.getGuild())).open();
-
-                    player.sendMessage(format("[lang]guilds.membersmenu.remove[/lang]"));
+                    if (!m.getUniqueId().equals(player.getUniqueId())) {
+                        menuUtil.getGuild().removeMember(m.getUniqueId());
+                        Guilds.getInstance().getData().removePlayer(m.getUniqueId());
+                        Guilds.getInstance().getData().saveGuild(menuUtil.getGuild());
+                        player.closeInventory();
+                        new MembersMenu(Guilds.getMenuUtil((Player) e.getWhoClicked(), menuUtil.getGuild())).open();
+                        player.sendMessage(format("[lang]guilds.membersmenu.remove[/lang]"));
+                    } else {
+                        player.closeInventory();
+                        player.sendMessage(format("[lang]guilds.membersmenu.cannot-remove-yourself[/lang]"));
+                    }
                 } else {
+                    player.closeInventory();
                     player.sendMessage(format("[lang]guilds.membersmenu.leaderremove[/lang]"));
                 }
             }

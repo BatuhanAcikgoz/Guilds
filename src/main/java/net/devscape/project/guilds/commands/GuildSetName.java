@@ -27,12 +27,12 @@ public class GuildSetName extends SubCommand {
 
                 final StringBuilder name = new StringBuilder();
                 for (final String arg : this.getArgs()) {
-                    if (!arg.equals("setname")) {
+                    if (!arg.equals("rename")) {
                         name.append(arg).append(" ");
                     }
                 }
                 this.getPlugin().getData().GuildSetNameSQL(player.getUniqueId(), name.toString());
-                Message.sendPlaceholder(this.getPlugin(), this.getSender(), "set-name", name.toString());
+                Message.sendPlaceholder(this.getPlugin(), this.getSender(), "rename", name.toString());
             }
             else {
                 Message.send(this.getPlugin(), this.getSender(), "must-be-owner");

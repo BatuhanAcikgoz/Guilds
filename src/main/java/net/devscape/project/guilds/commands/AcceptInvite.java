@@ -23,11 +23,11 @@ public class AcceptInvite extends SubCommand {
     
     private boolean execute() {
         final Player player2 = (Player)this.getSender();
-        final String guildName = this.getArgs()[1];
+        final String guildName = this.getPlugin().getData().getGuildDBId(this.getArgs()[1]);
         final boolean noGuild = !this.getPlugin().getData().getGuild(player2.getUniqueId()).isPresent();
         final boolean invited = this.getPlugin().getData().hasInvite(player2.getUniqueId(), guildName);
         if (!invited) {
-            Message.sendPlaceholder(this.getPlugin(), this.getSender(), "no-invite", guildName);
+            Message.sendPlaceholder(this.getPlugin(), this.getSender(), "no-invite", this.getArgs()[1]);
             return false;
         }
         final Optional<Guild> guild = this.getPlugin().getData().getGuild(guildName);

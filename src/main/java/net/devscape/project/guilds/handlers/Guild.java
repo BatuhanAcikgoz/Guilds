@@ -102,11 +102,11 @@ public class Guild implements Comparable<Guild> {
         }
         if  (levelexp >= 353 && levelexp <= 1507) {
                 this.levelexp = levelexp;
-                this.level = (int) (8.1+Math.sqrt(0.4*levelexp-(195.975)));
+                this.level = (int) (8.1+Math.sqrt(0.4*(levelexp-(195.975))));
         }
         if  (levelexp >= 1508) {
                 this.levelexp = levelexp;
-                this.level = (int) (18.055+Math.sqrt(0.222*levelexp-752.9861));
+                this.level = (int) (18.055+Math.sqrt(0.222*(levelexp-752.9861)));
         }
     }
     

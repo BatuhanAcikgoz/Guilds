@@ -4,7 +4,6 @@ import java.util.*;
 
 import net.devscape.project.guilds.Guilds;
 import net.devscape.project.guilds.handlers.Role;
-import net.devscape.project.guilds.util.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -40,7 +39,7 @@ public class GuildMenu extends Menu {
                 && e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(format("[lang]guilds.menu.members[/lang]"))) {
             Role role = menuUtil.getGuild().getMembers().get(player.getUniqueId());
 
-            if (role == Role.LEADER) {
+            if (role == Role.LEADER || role == Role.MOD) {
                 e.setCancelled(true);
                 e.getWhoClicked().closeInventory();
                 new MembersMenu(Guilds.getMenuUtil((Player) e.getWhoClicked(), menuUtil.getGuild())).open();
@@ -71,6 +70,8 @@ public class GuildMenu extends Menu {
         guildCommands.add("[lang]guilds.menu.help4[/lang]");
         guildCommands.add("[lang]guilds.menu.help5[/lang]");
         guildCommands.add("[lang]guilds.menu.help6[/lang]");
+        guildCommands.add("[lang]guilds.menu.help7[/lang]");
+        guildCommands.add("[lang]guilds.menu.help8[/lang]");
         this.inventory.setItem(35, this.makeItem(Material.OAK_SIGN, format("[lang]guilds.menu.commands[/lang]"), format(guildCommands)));
 
         this.inventory.setItem(16, this.makeItem(Material.WHITE_STAINED_GLASS_PANE, format("&f")));
