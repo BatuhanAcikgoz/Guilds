@@ -1,50 +1,59 @@
 package net.devscape.project.guilds.storage.database;
 
-import java.util.*;
-
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import net.devscape.project.guilds.Guilds;
 import net.devscape.project.guilds.handlers.Role;
 import net.devscape.project.guilds.handlers.GPlayer;
 import java.sql.ResultSet;
 import net.devscape.project.guilds.handlers.Guild;
 import java.sql.PreparedStatement;
-import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import net.devscape.project.guilds.storage.ManageData;
 
+import java.util.*;
+
 public class Database implements ManageData {
-    private final String host;
-    private final int port;
-    private final String username;
-    private final String password;
+    private final HikariDataSource ds;
     private final String playerTable;
     private final String guildTable;
     private final String inviteTable;
-    private final String database;
+    private Connection conn;
 
     public Database(final String host, final int port, final String username, final String password, final String table, final String database) throws SQLException {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
+        HikariConfig config = new HikariConfig();
+        config.setMinimumIdle(5); // minimum idle connections in the pool
+        config.setMaximumPoolSize(15); // maximum connections in the pool
+        config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
+        config.setUsername(username);
+        config.setPassword(password);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        ds = new HikariDataSource(config);
         this.playerTable = table + "_players";
         this.guildTable = table + "_guilds";
         this.inviteTable = table + "_invites";
-        this.database = database;
-        this.connect();
         this.createAllTables();
     }
-    
+
     public Connection connect() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.username, this.password);
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = ds.getConnection();
         }
-        catch (SQLException | ClassNotFoundException ex2) {
-            throw new SQLException("Could not connect");
+        return this.conn;
+    }
+
+    public void close() {
+        if (this.conn != null) {
+            try {
+                this.conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        ds.close();
     }
     
     public boolean createAllTables() throws SQLException {
@@ -56,8 +65,11 @@ public class Database implements ManageData {
     
     private boolean createGuildTable() throws SQLException {
         final String sql = "CREATE TABLE IF NOT EXISTS " + this.guildTable + " (id VARCHAR(64) NOT NULL, description VARCHAR(128) NOT NULL, level INT NOT NULL DEFAULT 0, levelexp INT NOT NULL DEFAULT 0, PRIMARY KEY (id))";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.execute();
             return true;
         }
@@ -69,8 +81,11 @@ public class Database implements ManageData {
     
     private boolean createPlayerTable() throws SQLException {
         final String sql = "CREATE TABLE IF NOT EXISTS " + this.playerTable + " (id VARCHAR(64) PRIMARY KEY, role VARCHAR(12) NOT NULL, guild_id VARCHAR(64) NOT NULL, INDEX guild_ind (guild_id), FOREIGN KEY (guild_id) REFERENCES " + this.guildTable + "(id) ON DELETE CASCADE ON UPDATE CASCADE)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.execute();
             return true;
         }
@@ -95,8 +110,11 @@ public class Database implements ManageData {
     
     private boolean updateGuild(final Guild guild) throws SQLException {
         final String sql = "UPDATE " + this.guildTable + " SET id = ?, description = ?, level = ?, levelexp = ? WHERE id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, guild.getName());
             stat.setString(2, guild.getDescription());
             stat.setInt(3, guild.getLevel());
@@ -113,8 +131,11 @@ public class Database implements ManageData {
     
     private boolean rowExists(final String table, final String id) {
         final String sql = "SELECT EXISTS (SELECT * FROM " + table + " WHERE id = ?)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, id);
             stat.execute();
             final ResultSet rs = stat.getResultSet();
@@ -130,8 +151,11 @@ public class Database implements ManageData {
     
     private boolean rowExists(final String table, final String playerId, final String guildId) {
         final String sql = "SELECT EXISTS (SELECT * FROM " + table + " WHERE player_id = ? AND guild_id = ?)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, playerId);
             stat.setString(2, guildId);
             stat.execute();
@@ -148,8 +172,11 @@ public class Database implements ManageData {
     
     private boolean insertGuild(final Guild guild) {
         final String sql = "INSERT INTO " + this.guildTable + " VALUES (?, ?, ?, ?)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, guild.getName());
             stat.setString(2, guild.getDescription());
             stat.setInt(3, guild.getLevel());
@@ -166,8 +193,11 @@ public class Database implements ManageData {
     @Override
     public boolean deleteGuild(final String id) {
         final String sql = "DELETE FROM " + this.guildTable + " WHERE id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, id);
             stat.execute();
             return true;
@@ -181,8 +211,11 @@ public class Database implements ManageData {
     @Override
     public boolean removePlayer(final UUID uuid) {
         final String sql = "DELETE FROM " + this.playerTable + " WHERE id = ? AND role = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, uuid.toString());
             stat.setString(2, "MEMBER");
             stat.execute();
@@ -210,8 +243,11 @@ public class Database implements ManageData {
     
     private boolean insertPlayer(final UUID id, final String role, final String guildId) throws SQLException {
         final String sql = "INSERT INTO " + this.playerTable + " VALUES (?, ?, ?)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, id.toString());
             stat.setString(2, role);
             stat.setString(3, guildId);
@@ -226,8 +262,11 @@ public class Database implements ManageData {
     
     public boolean updatePlayer(final UUID id, final String role, final String guildId) throws SQLException {
         final String sql = "UPDATE " + this.playerTable + " SET role = ?, guild_id = ? WHERE id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, role);
             stat.setString(2, guildId);
             stat.setString(3, id.toString());
@@ -316,8 +355,11 @@ public class Database implements ManageData {
     @Override
     public boolean hasInvite(final UUID playerId, final String guildId) {
         final String sql = "SELECT * FROM " + this.inviteTable + " WHERE player_id = ? AND guild_id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, playerId.toString());
             stat.setString(2, guildId);
             stat.execute();
@@ -335,8 +377,11 @@ public class Database implements ManageData {
     private Set<String> getGuildIds() {
         final String sql = "SELECT id FROM " + this.guildTable;
         final Set<String> ids = new HashSet<String>();
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.execute();
             final ResultSet rs = stat.getResultSet();
             while (rs.next()) {
@@ -353,8 +398,11 @@ public class Database implements ManageData {
     private Optional<Guild> loadGuildData(final String id) {
         final Guild guild = new Guild(id);
         final String sql = "SELECT description, levelexp FROM " + this.guildTable + " WHERE id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+        try {
+            if (this.conn == null || this.conn.isClosed()) {
+                this.conn = this.connect();
+            }
+            PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, id);
             stat.execute();
             final ResultSet rs = stat.getResultSet();
@@ -375,8 +423,11 @@ public class Database implements ManageData {
     private Optional<Map<UUID, Role>> loadGuildMembers(final String id) {
         final String sql = "SELECT * FROM " + this.playerTable + " WHERE guild_id = ?";
         final Map<UUID, Role> members = new HashMap<UUID, Role>();
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, id);
             stat.execute();
             final ResultSet rs = stat.getResultSet();
@@ -398,8 +449,11 @@ public class Database implements ManageData {
     
     private void createInvitesTable() throws SQLException {
         final String sql = "CREATE TABLE IF NOT EXISTS " + this.inviteTable + "(player_id VARCHAR(64) NOT NULL, guild_id VARCHAR(64) NOT NULL, INDEX guild_ind (guild_id), FOREIGN KEY (guild_id) REFERENCES " + this.guildTable + "(id) ON DELETE CASCADE ON UPDATE CASCADE)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.execute();
         }
         catch (SQLException e) {
@@ -418,8 +472,11 @@ public class Database implements ManageData {
 
     public String getGuildDBId(final String guildId) {
         final String sql = "SELECT id FROM " + this.guildTable + " WHERE id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, guildId);
             stat.execute();
             final ResultSet rs = stat.getResultSet();
@@ -436,8 +493,11 @@ public class Database implements ManageData {
 
     private boolean insertInvite(final String playerId, final String guildId) {
         final String sql = "INSERT INTO " + this.inviteTable + " VALUES (?, ?)";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, playerId);
             stat.setString(2, guildId);
             stat.execute();
@@ -452,8 +512,11 @@ public class Database implements ManageData {
     public boolean GuildSetNameSQL(final UUID playerId, final String guildId) {
         final Optional<Guild> oldguildname = Guilds.getInstance().getData().getGuild(playerId);
         final String sql = "UPDATE " + this.guildTable + " SET id = ? WHERE id = ?";
-        try (final Connection conn = this.connect();
-             final PreparedStatement stat = conn.prepareStatement(sql)) {
+    try {
+        if (this.conn == null || this.conn.isClosed()) {
+            this.conn = this.connect();
+        }
+        PreparedStatement stat = this.conn.prepareStatement(sql);
             stat.setString(1, guildId);
             stat.setString(2, oldguildname.get().getName());
             stat.execute();

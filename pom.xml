@@ -49,6 +49,16 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.jar</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
             </resource>
         </resources>
     </build>
@@ -74,6 +84,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.19.3-R0.1-SNAPSHOT</version>
@@ -92,9 +107,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>ga.strikepractice</groupId>
+            <groupId>ga.strikepractice.api</groupId>
             <artifactId>StrikePractice</artifactId>
-            <version>3.7.2</version>
+            <version>3.9.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/resources/spapi.jar</systemPath>
         </dependency>

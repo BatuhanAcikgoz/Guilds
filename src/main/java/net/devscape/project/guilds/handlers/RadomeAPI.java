@@ -11,11 +11,13 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
@@ -137,35 +139,35 @@ public class RadomeAPI implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerDeathEvent(PlayerDeathEvent event) {
-        Player victim = event.getEntity().getPlayer();
-        if (event.getEntity().getKiller() != null) {
-            Player killer = event.getEntity().getKiller();
-            StrikePracticeAPI api = StrikePractice.getAPI();
-            String playerkit = api.getKit(killer).getName();
-            String arena = api.getFight(killer).getArena().getName();
-            ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-            String command = "battlekit give netheritepotffa " + killer.getName();
+     @EventHandler (priority = EventPriority.LOWEST)
+     public void onPlayerDeathEvent(PlayerDeathEvent event) {
+         Player victim = event.getEntity().getPlayer();
+         Player killer = event.getEntity().getKiller();
+      if (killer != null) {
+          StrikePracticeAPI api = StrikePractice.getAPI();
+          String playerkit = api.getKit(killer).getName();
+          String arena = api.getFight(killer).getArena().getName();
+          ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+              String command = "battlekit give netheritepotffa " + killer.getName();
             if (Objects.equals(playerkit, "netheritepotffa") && Objects.equals(arena, "ffa")) {
-                Bukkit.dispatchCommand(console, command);
-                int currentStreak = killStreaks.getOrDefault(killer, 0) + 1;
-                killStreaks.put(killer, currentStreak);
-                killer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
-                killer.spigot().sendMessage(ChatMessageType.CHAT, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
-                if (currentStreak % 5 == 0) {
-                    Bukkit.broadcastMessage("§6§l⚔ §e" +killer.getName()+ " §7adlı oyuncu §e " + currentStreak +"§6🔥 §7öldürme serisine ulaştı!");
-                }
-            }
-        }
-        if (killStreaks.containsKey(victim)) {
-            killStreaks.put(victim, 0);
-        }
-    }
+          Bukkit.dispatchCommand(console, command);
+                  int currentStreak = killStreaks.getOrDefault(killer, 0) + 1;
+              killStreaks.put(killer, currentStreak);
+              killer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
+              killer.spigot().sendMessage(ChatMessageType.CHAT, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
+              if (currentStreak % 5 == 0) {
+                  Bukkit.broadcastMessage("§6§l⚔ §e" +killer.getName()+ " §7adlı oyuncu §e " + currentStreak +"§6🔥 §7öldürme serisine ulaştı!");
+              }
+          }
+      }
+      if (killStreaks.containsKey(victim)) {
+          killStreaks.put(victim, 0);
+      }
+     }
 
     @EventHandler
     public void onTNTExplosion(EntityExplodeEvent event) {
-        event.blockList().clear(); // Blok hasarını önlemek için patlama olayını iptal et.
+        event.blockList().clear();
     }
 }
 
