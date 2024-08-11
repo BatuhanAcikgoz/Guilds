@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aeb239ca-4588-465b-a536-922d1b4f195e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Guilds.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/devscape/project/guilds/handlers/RadomeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/devscape/project/guilds/handlers/RadomeAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spapi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spapi.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Guilds-1.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Guilds-1.2.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/CommandHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/CommandHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/Guilds$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/Guilds$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/Guilds.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/Guilds.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/SubCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/SubCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/AcceptInvite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/AcceptInvite.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/Chat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/Chat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/Confirmation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/Confirmation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/CreateGuild.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/CreateGuild.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/DenyInvite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/DenyInvite.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/DisbandGuild.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/DisbandGuild.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/DisbandGuildAccept.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/DisbandGuildAccept.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/GetGuildInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/GetGuildInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/GuildSetName.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/GuildSetName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/InvitePlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/InvitePlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/LeaveGuild.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/LeaveGuild.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/ListGuilds.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/ListGuilds.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/Reload.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/Reload.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/SetDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/SetDescription.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/SetRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/commands/SetRole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/GPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/GPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/Guild.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/Guild.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/RadomeAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/RadomeAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/hooks/PAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/handlers/hooks/PAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/Menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/MenuListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/MenuListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/MenuUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/MenuUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/pages/GuildMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/pages/GuildMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/pages/MembersMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/menus/pages/MembersMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/ManageData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/ManageData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/database/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/database/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/database/DatabaseCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/database/DatabaseCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/file/FileCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/file/FileCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/file/FileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/storage/file/FileManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/util/InputChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/util/InputChecker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/util/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/devscape/project/guilds/util/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/spapi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spapi.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-Guilds-1.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-Guilds-1.2.jar" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2k6TO8TFD2c05Z0GNnYAdi7Lre3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.Guilds [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aeb239ca-4588-465b-a536-922d1b4f195e" name="Changes" comment="" />
+      <created>1722602996995</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722602996995</updated>
+      <workItem from="1722602999241" duration="1412000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

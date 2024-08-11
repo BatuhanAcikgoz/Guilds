@@ -32,7 +32,7 @@ public class RadomeAPI implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onQuit(final PlayerQuitEvent e) {
         Player player = e.getPlayer();
         final Optional<Guild> guild = Guilds.getInstance().getData().getGuild(player.getUniqueId());
@@ -41,14 +41,7 @@ public class RadomeAPI implements Listener {
         }
     }
 
-    @EventHandler
-    public void onJoinCommand(final PlayerJoinEvent e) {
-        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-        String command = "usersitelink " + e.getPlayer().getUniqueId();
-        Bukkit.dispatchCommand(console, command);
-    }
-
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onJoin(final PlayerJoinEvent e) {
         Player player = e.getPlayer();
         final Optional<Guild> guild = Guilds.getInstance().getData().getGuild(player.getUniqueId());
@@ -60,7 +53,7 @@ public class RadomeAPI implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onRespawn(final PlayerRespawnEvent e) {
         Player player = e.getPlayer();
         final Optional<Guild> guild1 = Guilds.getInstance().getData().getGuild(player.getUniqueId());
@@ -76,7 +69,7 @@ public class RadomeAPI implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onWorldChange(final PlayerChangedWorldEvent e) {
         Player player = e.getPlayer();
         final Optional<Guild> guild1 = Guilds.getInstance().getData().getGuild(player.getUniqueId());
@@ -92,7 +85,7 @@ public class RadomeAPI implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOWEST)
     public void onFightEnd(DuelEndEvent event) {
         Player player1 = event.getWinner().getPlayer();
         final Optional<Guild> guild1 = Guilds.getInstance().getData().getGuild(player1.getUniqueId());
@@ -115,55 +108,47 @@ public class RadomeAPI implements Listener {
         }
     }
 
-    @EventHandler(
-            priority = EventPriority.LOW
-    )
+    @EventHandler(priority = EventPriority.LOW)
     public void a(AsyncPlayerChatEvent var1) {
-        if (!var1.isCancelled()) {
-            final Player player = var1.getPlayer();
-            final Optional<Guild> guild = this.plugin.getData().getGuild(player.getUniqueId());
-            final Optional<GPlayer> gPlayer = this.plugin.getData().getPlayer(player.getUniqueId());
-            if (guild.isPresent()) {
-                if (gPlayer.isPresent()) {
-                    for (final UUID uuid : guild.get().getMembers().keySet()) {
-                        final OfflinePlayer member = Bukkit.getOfflinePlayer(uuid);
-                        if (member.isOnline()) {
-                          if (player.hasMetadata("RadomeGuildChat")) {
-                              Message.sendMessage(Objects.requireNonNull(member.getPlayer()), "&2[Lonca] &2&l" + gPlayer.get().getRole() + " &7" + player.getName() + "&8:&f " + var1.getMessage());
-                              var1.setCancelled(true);
-                          }
-                        }
-                    }
-                }
+        if (var1.isCancelled()) {return;}
+        final Player player = var1.getPlayer();
+        final Optional<Guild> guild = this.plugin.getData().getGuild(player.getUniqueId());
+        final Optional<GPlayer> gPlayer = this.plugin.getData().getPlayer(player.getUniqueId());
+        if (!(guild.isPresent() && gPlayer.isPresent())) {return;}
+        for (final UUID uuid : guild.get().getMembers().keySet()) {
+            final OfflinePlayer member = Bukkit.getOfflinePlayer(uuid);
+            if (!member.isOnline()) {continue;}
+            if (player.hasMetadata("RadomeGuildChat")) {
+                Message.sendMessage(Objects.requireNonNull(member.getPlayer()), "&2[Lonca] &2&l" + gPlayer.get().getRole() + " &7" + player.getName() + "&8:&f " + var1.getMessage());
+                var1.setCancelled(true);
             }
         }
     }
 
-     @EventHandler (priority = EventPriority.LOWEST)
-     public void onPlayerDeathEvent(PlayerDeathEvent event) {
-         Player victim = event.getEntity().getPlayer();
-         Player killer = event.getEntity().getKiller();
-      if (killer != null) {
-          StrikePracticeAPI api = StrikePractice.getAPI();
-          String playerkit = api.getKit(killer).getName();
-          String arena = api.getFight(killer).getArena().getName();
-          ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-              String command = "battlekit give netheritepotffa " + killer.getName();
-            if (Objects.equals(playerkit, "netheritepotffa") && Objects.equals(arena, "ffa")) {
-          Bukkit.dispatchCommand(console, command);
-                  int currentStreak = killStreaks.getOrDefault(killer, 0) + 1;
-              killStreaks.put(killer, currentStreak);
-              killer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
-              killer.spigot().sendMessage(ChatMessageType.CHAT, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
-              if (currentStreak % 5 == 0) {
-                  Bukkit.broadcastMessage("§6§l⚔ §e" +killer.getName()+ " §7adlı oyuncu §e " + currentStreak +"§6🔥 §7öldürme serisine ulaştı!");
-              }
-          }
-      }
-      if (killStreaks.containsKey(victim)) {
-          killStreaks.put(victim, 0);
-      }
-     }
+
+    @EventHandler (priority = EventPriority.LOWEST)
+    public void onPlayerDeathEvent(PlayerDeathEvent event) {
+        Player killer = event.getEntity().getKiller();
+        if (killer == null) {
+            return;
+        }
+        StrikePracticeAPI api = StrikePractice.getAPI();
+        String playerkit = api.getKit(killer).getName();
+        String arena = api.getFight(killer).getArena().getName();
+        if (Objects.equals(playerkit, "netheritepotffa") && Objects.equals(arena, "ffa")) {
+            ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+            String command = "battlekit give netheritepotffa " + killer.getName();
+            Bukkit.dispatchCommand(console, command);
+            int currentStreak = killStreaks.getOrDefault(killer, 0) + 1;
+            killStreaks.put(killer, currentStreak);
+            Player victim = event.getEntity().getPlayer();
+            killer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
+            killer.spigot().sendMessage(ChatMessageType.CHAT, TextComponent.fromLegacyText("§6§l⚔ §e" +victim.getName()+ " §7adlı oyuncuyu öldürdünüz! Şu anki öldürme seriniz§e " + currentStreak +"§6🔥"));
+            if (currentStreak % 5 == 0) {
+                Bukkit.broadcastMessage("§6§l⚔ §e" +killer.getName()+ " §7adlı oyuncu §e " + currentStreak +"§6🔥 §7öldürme serisine ulaştı!");
+            }
+        }
+    }
 
     @EventHandler
     public void onTNTExplosion(EntityExplodeEvent event) {

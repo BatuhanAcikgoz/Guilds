@@ -10,6 +10,7 @@ database-info:
 settings:
   enable-guild-creation-cost: true
   guild-creation-cost: 500 # set `enable-guild-creation-cost` too false, to disable creation cost.
+  damage-immunity-value: 1
 
 # style messages to fit your server.
 messages:
